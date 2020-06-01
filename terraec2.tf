@@ -1,3 +1,6 @@
+## creating instance with user-defined VPC, SUBNETS, SECURITY GROUP
+
+
 provider "aws" {
     access_key = "AWS ACCESS KEY"
     secret_key = "AWS SECRETE KEY"

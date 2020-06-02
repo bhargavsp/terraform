@@ -1,15 +1,21 @@
 ## creating instance with user-defined SECURITY GROUP and running apache webserver
 
-provider "aws" {
-    access_key = "AWS ACCESS KEY"
-    secret_key = "AWS SECRETE KEY"
-    region = "us-east-1"
+variable "access_key" {}
+variable "secret_key" {}
+variable "region" {
+  default = "us-east-1"
 }
 
 variable "public_key_path" {
   description = "Public key path"
   default = "~/.ssh/id_rsa.pub"
 }
+
+provider "aws" {
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
+    region     = "${var.region}"
+} 
 
 resource "aws_key_pair" "ec2key" {
   key_name = "publicKey"

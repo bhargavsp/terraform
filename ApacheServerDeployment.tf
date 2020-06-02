@@ -6,6 +6,16 @@ provider "aws" {
     region = "us-east-1"
 }
 
+variable "public_key_path" {
+  description = "Public key path"
+  default = "~/.ssh/id_rsa.pub"
+}
+
+resource "aws_key_pair" "ec2key" {
+  key_name = "publicKey"
+  public_key = "${file(var.public_key_path)}"
+}
+
 ## Security Group##
 resource "aws_security_group" "terraform_private_sg" {
   description = "Allow limited inbound external traffic"
@@ -39,4 +49,16 @@ resource "aws_security_group" "terraform_private_sg" {
 
 output "aws_security_gr_id" {
   value = "${aws_security_group.terraform_private_sg.id}"
+}
+
+resource "aws_instance" "terraform_wapp" {
+    ami = "ami-039a49e70ea773ffc"
+    instance_type = "t2.micro"
+    key_name               = "${aws_key_pair.ec2key.key_name}"
+    count         = 1
+    associate_public_ip_address = true
+    tags = {
+      Name              = "terraform_ec2_dev"
+      Environment       = "development"
+    }
 }

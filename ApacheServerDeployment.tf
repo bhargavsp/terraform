@@ -60,7 +60,7 @@ output "aws_security_gr_id" {
 resource "aws_instance" "terraform_wapp" {
     ami = "ami-039a49e70ea773ffc"
     instance_type = "t2.micro"
-    vpc_security_group_ids = "${aws_security_group.terraform_private_sg.id}"
+    vpc_security_group_ids = [ "${aws_security_group.terraform_private_sg.id}" ]
     key_name               = "TASK"
     count         = 1
     associate_public_ip_address = true

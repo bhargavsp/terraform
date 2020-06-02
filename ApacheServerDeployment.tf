@@ -9,7 +9,6 @@ provider "aws" {
 ## Security Group##
 resource "aws_security_group" "terraform_private_sg" {
   description = "Allow limited inbound external traffic"
-  vpc_id      = "${aws_vpc.terraform-vpc.id}"
   name        = "terraform_ec2_private_sg"
 
   ingress {

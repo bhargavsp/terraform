@@ -60,7 +60,8 @@ resource "aws_instance" "terraform_wapp" {
                   #!/bin/bash
                   sudo su
                   yum -y install httpd
-                  echo "<p> My Instance! </p>" >> /var/www/html/index.html
+                  publicip=$(curl ifconfig.co)
+                  echo "Hello from $publicip" >> /var/www/html/index.html
                   sudo systemctl enable httpd
                   sudo systemctl start httpd
                   EOF

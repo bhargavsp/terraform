@@ -6,21 +6,16 @@ variable "region" {
   default = "us-east-1"
 }
 
-#variable "public_key_path" {
- # description = "Public key path"
-  #default = "~/.ssh/id_rsa.pub"
-#}
+variable "key_pair_name" {
+  description = "EC2 Key pair name"
+  default = ""
+}
 
 provider "aws" {
     access_key = "${var.access_key}"
     secret_key = "${var.secret_key}"
     region     = "${var.region}"
 } 
-
-#resource "aws_key_pair" "ec2key" {
- # key_name = "publicKey"
-  #public_key = "${file(var.public_key_path)}"
-#}
 
 ## Security Group##
 resource "aws_security_group" "terraform_private_sg" {
@@ -61,7 +56,7 @@ resource "aws_instance" "terraform_wapp" {
     ami = "ami-039a49e70ea773ffc"
     instance_type = "t2.micro"
     vpc_security_group_ids = [ "${aws_security_group.terraform_private_sg.id}" ]
-    key_name               = "TASK"
+    key_name               = "${var.key_pair_name}"
     count         = 1
     associate_public_ip_address = true
     tags = {

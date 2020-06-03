@@ -49,16 +49,6 @@ output "aws_security_gr_id" {
   value = "${aws_security_group.terraform_private_sg.id}"
 }
 
-resource "aws_instance" "myInstance" {
-  ami           = "ami-06ce3edf0cff21f07"
-  instance_type = "t2.micro"
-  
-}
-
-output "DNS" {
-  value = aws_instance.myInstance.public_dns
-}
-
 resource "aws_instance" "terraform_wapp" {
     ami = "ami-039a49e70ea773ffc"
     instance_type = "t2.micro"

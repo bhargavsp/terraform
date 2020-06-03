@@ -6,10 +6,7 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "key_pair_name" {
-  description = "EC2 Key pair name"
-  default = ""
-}
+variable "key_pair_name" {}
 
 provider "aws" {
     access_key = "${var.access_key}"
